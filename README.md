@@ -1,2 +1,270 @@
 # cafe-coffeeshop-sunabaco
 cafe 珈琲屋　告知ページ
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe 珈琲屋</title>
+<style>
+body {
+  font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fffaf5;
+  color: #333;
+}
+
+/* ヘッダー */
+header {
+  background: #5c3d2e;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+header h1 { margin: 0; }
+
+/* ナビ */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ハンバーガー */
+.menu-toggle {
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+}
+
+/* ヒーロー */
+.hero {
+  background: url("images/hero.jpg") center/cover no-repeat;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+}
+.hero h2 { font-size: 2.2rem; margin: 0; }
+.hero p { font-size: 1.3rem; margin-top: 0.5rem; }
+
+section { padding: 2rem 10%; }
+h2 {
+  border-bottom: 2px solid #5c3d2e;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+/* カード（PC版横並び保持） */
+.cards {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.card {
+  flex: 1;
+  min-width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.card h3 { margin: 0.8rem; }
+.card p { margin: 0 0.8rem 1rem 0.8rem; font-size: 0.9rem; }
+
+/* メニューグリッド（PC版横並び保持） */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.menu-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+}
+.menu-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+.menu-item h3 { margin: 0.8rem 0 0.4rem; }
+.menu-item p { margin-bottom: 1rem; font-weight: bold; color: #5c3d2e; }
+
+/* 店主 */
+.owner { text-align: center; }
+.owner img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 3px solid #5c3d2e;
+}
+
+iframe { width: 100%; height: 300px; border: 0; }
+
+/* フッター */
+footer {
+  background: #5c3d2e;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* スマホ用レスポンシブ */
+@media (max-width: 768px) {
+  /* ハンバーガー対応 */
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+    background: #5c3d2e;
+    border-radius: 0 0 8px 8px;
+  }
+  nav ul.show { max-height: 500px; }
+  nav a {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+  nav a:last-child { border-bottom: none; }
+  .menu-toggle { display: block; }
+
+  /* カード縦並び */
+  .cards {
+    flex-direction: column;
+  }
+  .card img {
+    height: auto;
+  }
+
+  /* メニュー縦並び */
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+  .menu-item img {
+    height: auto;
+  }
+
+  /* ヒーロー高さ調整 */
+  .hero {
+    height: 250px;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Cafe</h1>
+  <span class="menu-toggle">☰</span>
+  <nav>
+    <ul>
+      <li><a href="#concept">こだわり</a></li>
+      <li><a href="#menu">メニュー</a></li>
+      <li><a href="#owner">店主紹介</a></li>
+      <li><a href="#access">アクセス</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>心安らぐひとときを</h2>
+  <p>Cafe 珈琲屋</p>
+</section>
+
+<section id="concept">
+  <h2>こだわり</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="images/milk.jpg" alt="牧場の写真">
+      <h3>ミルクのこだわり</h3>
+      <p>北海道の新鮮な牧場直送の特濃ミルクを使用しています。</p>
+    </div>
+    <div class="card">
+      <img src="images/coffee.jpg" alt="コーヒー豆">
+      <h3>豆のこだわり</h3>
+      <p>コロンビアなど世界各地から厳選した豆を自家焙煎しています。</p>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <h2>メニュー</h2>
+  <div class="menu-grid">
+    <div class="menu-item">
+      <img src="images/blackcoffee.jpg" alt="ブラックコーヒー">
+      <h3>ブラックコーヒー</h3>
+      <p>¥580</p>
+    </div>
+    <div class="menu-item">
+      <img src="images/cafeau.jpg" alt="カフェオレ">
+      <h3>カフェオレ</h3>
+      <p>¥630</p>
+    </div>
+    <div class="menu-item">
+      <img src="images/napolitan.jpg" alt="ナポリタン">
+      <h3>トマトソースのパスタ</h3>
+      <p>¥800</p>
+    </div>
+  </div>
+</section>
+
+<section id="owner" class="owner">
+  <h2>店主紹介</h2>
+  <img src="images/owner.jpg" alt="店主の写真（50代男性）">
+  <h3>店主 山田太郎</h3>
+  <p>「一杯のコーヒーでみなさんの一日が豊かになりますように」</p>
+</section>
+
+<section id="access">
+  <h2>アクセス</h2>
+  <p>東京駅から徒歩5分</p>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.080109635187!2d139.76330251525804!3d35.68124023798064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bf84e0a3e4b%3A0x2f3e28b5c828a7b!2z5p2x5Lqs6YO95Lit5aSu5Yy65p2x5Lqs5biC!5e0!3m2!1sja!2sjp!4v1693735712345!5m2!1sja!2sjp" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<footer>
+  <p>営業時間: 10:00〜20:00（水曜定休）</p>
+  <p>電話番号: 03-1234-5678</p>
+  <p>&copy; 2025 Cafe 珈琲屋</p>
+</footer>
+
+<script>
+const toggle = document.querySelector(".menu-toggle");
+const menu = document.querySelector("nav ul");
+
+toggle.addEventListener("click", () => menu.classList.toggle("show"));
+
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", () => menu.classList.remove("show"));
+});
+</script>
+</body>
+</html>
