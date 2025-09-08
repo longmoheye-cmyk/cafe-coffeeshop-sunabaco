@@ -1,270 +1,276 @@
-# cafe-coffeeshop-sunabaco
-cafe 珈琲屋　告知ページ
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cafe 珈琲屋</title>
-<style>
-body {
-  font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #fffaf5;
-  color: #333;
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>珈琲屋 Café Lait - たっぷりミルクのカフェオレ</title>
+  <meta name="description" content="たっぷりミルクのカフェオレと、焙煎にこだわったコーヒー豆が自慢の珈琲屋。テイクアウトや豆の販売も。">
+  <style>
+    /* ========== 基本設定 ========== */
+    :root {
+      --accent: #7b4b2a;    /* コーヒー */
+      --accent-2: #c09a7a;  /* ラテ */
+      --milk: #f5efe7;      /* ミルク */
+      --bg: #fffaf5;        /* 背景 */
+      --ink: #2b211a;       /* 文字 */
+      --muted: #8e7c6e;     /* 補助 */
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 18px;
+    }
 
-/* ヘッダー */
-header {
-  background: #5c3d2e;
-  color: #fff;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.7;
+      letter-spacing: .02em;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, 92%); margin-inline: auto; }
+    .pill { padding: 6px 12px; border-radius: 9999px; background: var(--milk); display: inline-block; font-size: .9rem; color: var(--accent); border: 1px solid #eadfd4; }
+    .btn { display: inline-block; padding: 12px 18px; border-radius: 14px; background: var(--accent); color: #fff; box-shadow: var(--shadow); transition: transform .08s ease, filter .2s ease; }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
 
-header h1 { margin: 0; }
+    /* ========== ヘッダー ========== */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(8px);
+      background: rgba(255, 250, 245, .85);
+      border-bottom: 1px solid #eee1d7;
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 10px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 36px; height: 36px; border-radius: 50%; background: radial-gradient(70% 70% at 30% 30%, #9f6b45, var(--accent));
+      box-shadow: inset 0 6px 12px rgba(0,0,0,.2), 0 2px 8px rgba(0,0,0,.12);
+    }
+    .brand-name { font-weight: 700; letter-spacing: .04em; }
+    nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; }
+    nav a { padding: 8px 10px; border-radius: 999px; }
+    nav a:hover { background: var(--milk); }
 
-/* ナビ */
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 1rem;
-}
+    /* ========== ヒーロー ========== */
+    .hero {
+      position: relative; min-height: 64svh; display: grid; place-items: center; text-align: center; overflow: clip;
+      background: #000;
+    }
+    .hero-media { position: absolute; inset: 0; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.7); }
+    .hero-content { position: relative; color: #fff; padding: 60px 0; }
+    .hero h1 { font-size: clamp(28px, 5vw, 56px); margin: 14px 0 8px; line-height: 1.2; }
+    .hero p { font-size: clamp(14px, 2.2vw, 18px); opacity: .95; }
+    .hero-cta { margin-top: 18px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-nav a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-}
+    /* ========== セクション共通 ========== */
+    section { padding: 64px 0; }
+    .section-title { font-size: clamp(22px, 3.2vw, 32px); margin: 0 0 24px; }
+    .muted { color: var(--muted); }
 
-/* ハンバーガー */
-.menu-toggle {
-  font-size: 1.8rem;
-  cursor: pointer;
-  display: none;
-}
+    /* ========== こだわり ========== */
+    .features { display: grid; grid-template-columns: 1fr; gap: 18px; }
+    .card {
+      border-radius: var(--radius); background: #fff; padding: 22px; box-shadow: var(--shadow); display: grid; grid-template-columns: 86px 1fr; gap: 18px; align-items: center;
+    }
+    .icon { width: 86px; height: 86px; border-radius: 16px; background: linear-gradient(135deg, var(--milk), #fff); display: grid; place-items: center; border: 1px solid #efe6dc; }
+    .icon span { font-size: 34px; }
+    .card h3 { margin: 2px 0 6px; }
 
-/* ヒーロー */
-.hero {
-  background: url("images/hero.jpg") center/cover no-repeat;
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-}
-.hero h2 { font-size: 2.2rem; margin: 0; }
-.hero p { font-size: 1.3rem; margin-top: 0.5rem; }
+    @media (min-width: 720px) {
+      .features { grid-template-columns: repeat(2, 1fr); }
+    }
 
-section { padding: 2rem 10%; }
-h2 {
-  border-bottom: 2px solid #5c3d2e;
-  display: inline-block;
-  margin-bottom: 1.5rem;
-}
+    /* ========== メニュー ========== */
+    .menu-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+    .menu-item { border-radius: var(--radius); background: #fff; overflow: hidden; box-shadow: var(--shadow); }
+    .menu-media { aspect-ratio: 4 / 3; background: #ddd; }
+    .menu-body { padding: 16px 18px 18px; }
+    .price { font-weight: 700; color: var(--accent); }
+    @media (min-width: 720px) { .menu-grid { grid-template-columns: repeat(3, 1fr); } }
 
-/* カード（PC版横並び保持） */
-.cards {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-.card {
-  flex: 1;
-  min-width: 250px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
-}
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-.card h3 { margin: 0.8rem; }
-.card p { margin: 0 0.8rem 1rem 0.8rem; font-size: 0.9rem; }
+    /* ========== ストーリー / 豆へのこだわり ========== */
+    .story { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
+    .story .photo { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .story .text { padding: 10px; }
+    @media (min-width: 920px) { .story { grid-template-columns: 1.1fr 1fr; } }
 
-/* メニューグリッド（PC版横並び保持） */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-.menu-item {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
-  text-align: center;
-}
-.menu-item img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-.menu-item h3 { margin: 0.8rem 0 0.4rem; }
-.menu-item p { margin-bottom: 1rem; font-weight: bold; color: #5c3d2e; }
+    /* ========== アクセス ========== */
+    .access { background: linear-gradient(180deg, #fff, var(--milk)); border-top: 1px solid #efe6dc; border-bottom: 1px solid #efe6dc; }
+    .access-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .access .panel { background: #fff; border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    @media (min-width: 860px) { .access-grid { grid-template-columns: 1.2fr 1fr; } }
 
-/* 店主 */
-.owner { text-align: center; }
-.owner img {
-  width: 160px;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 1rem;
-  border: 3px solid #5c3d2e;
-}
+    /* ========== フッター ========== */
+    footer { padding: 28px 0 60px; color: #7a6a5f; }
+    .foot { display: grid; gap: 16px; }
+    .foot small { color: #a39184; }
 
-iframe { width: 100%; height: 300px; border: 0; }
-
-/* フッター */
-footer {
-  background: #5c3d2e;
-  color: #fff;
-  text-align: center;
-  padding: 1.5rem;
-  margin-top: 2rem;
-}
-
-/* スマホ用レスポンシブ */
-@media (max-width: 768px) {
-  /* ハンバーガー対応 */
-  nav ul {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.3s ease;
-    background: #5c3d2e;
-    border-radius: 0 0 8px 8px;
-  }
-  nav ul.show { max-height: 500px; }
-  nav a {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-  }
-  nav a:last-child { border-bottom: none; }
-  .menu-toggle { display: block; }
-
-  /* カード縦並び */
-  .cards {
-    flex-direction: column;
-  }
-  .card img {
-    height: auto;
-  }
-
-  /* メニュー縦並び */
-  .menu-grid {
-    grid-template-columns: 1fr;
-  }
-  .menu-item img {
-    height: auto;
-  }
-
-  /* ヒーロー高さ調整 */
-  .hero {
-    height: 250px;
-  }
-}
-</style>
+    /* 細かなユーティリティ */
+    .mt-8 { margin-top: 8px; } .mt-12 { margin-top: 12px; } .mt-16 { margin-top: 16px; }
+    .mb-0 { margin-bottom: 0; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  </style>
 </head>
 <body>
-<header>
-  <h1>Cafe</h1>
-  <span class="menu-toggle">☰</span>
-  <nav>
-    <ul>
-      <li><a href="#concept">こだわり</a></li>
-      <li><a href="#menu">メニュー</a></li>
-      <li><a href="#owner">店主紹介</a></li>
-      <li><a href="#access">アクセス</a></li>
-    </ul>
-  </nav>
-</header>
-
-<section class="hero">
-  <h2>心安らぐひとときを</h2>
-  <p>Cafe 珈琲屋</p>
-</section>
-
-<section id="concept">
-  <h2>こだわり</h2>
-  <div class="cards">
-    <div class="card">
-      <img src="images/milk.jpg" alt="牧場の写真">
-      <h3>ミルクのこだわり</h3>
-      <p>北海道の新鮮な牧場直送の特濃ミルクを使用しています。</p>
+  <!-- ========== Header ========== -->
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <!-- 店名はご自由に変更してください -->
+        <div class="brand-name">珈琲屋 Café Lait</div>
+      </div>
+      <nav aria-label="メイン">
+        <ul>
+          <li><a href="#about">こだわり</a></li>
+          <li><a href="#menu">メニュー</a></li>
+          <li><a href="#beans">コーヒー豆</a></li>
+          <li><a href="#access">アクセス</a></li>
+        </ul>
+      </nav>
     </div>
-    <div class="card">
-      <img src="images/coffee.jpg" alt="コーヒー豆">
-      <h3>豆のこだわり</h3>
-      <p>コロンビアなど世界各地から厳選した豆を自家焙煎しています。</p>
+  </header>
+
+  <!-- ========== Hero ========== -->
+  <section class="hero" aria-label="メインビジュアル">
+    <div class="hero-media" aria-hidden="true">
+      <!-- 画像はご自由に差し替えてください（商用利用可の素材推奨） -->
+      <img loading="eager" src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=2000&auto=format&fit=crop" alt="ラテアートが施されたカフェオレ">
     </div>
-  </div>
-</section>
-
-<section id="menu">
-  <h2>メニュー</h2>
-  <div class="menu-grid">
-    <div class="menu-item">
-      <img src="images/blackcoffee.jpg" alt="ブラックコーヒー">
-      <h3>ブラックコーヒー</h3>
-      <p>¥580</p>
+    <div class="hero-content container">
+      <span class="pill">売りは “たっぷりミルクのカフェオレ”</span>
+      <h1>今日の一杯に、やさしいミルクと深い香り。</h1>
+      <p class="mt-8">厳選したスペシャルティ豆を、毎朝丁寧に焙煎。<br>カフェオレはミルクたっぷり、まろやかでコクのある味わいです。</p>
+      <div class="hero-cta">
+        <a class="btn" href="#menu">メニューを見る</a>
+        <a class="btn btn-outline" href="#beans">豆を選ぶ</a>
+      </div>
     </div>
-    <div class="menu-item">
-      <img src="images/cafeau.jpg" alt="カフェオレ">
-      <h3>カフェオレ</h3>
-      <p>¥630</p>
+  </section>
+
+  <!-- ========== Features / About ========== -->
+  <section id="about" class="container" aria-labelledby="about-title">
+    <h2 id="about-title" class="section-title">こだわり</h2>
+    <div class="features">
+      <article class="card" aria-label="たっぷりミルクのカフェオレ">
+        <div class="icon" aria-hidden="true"><span>🥛</span></div>
+        <div>
+          <h3 class="mb-0">たっぷりミルクのカフェオレ</h3>
+          <p class="muted mt-8">リッチなミルクを贅沢に使用。まろやかなコクと甘みで、コーヒーが苦手な方にもおすすめ。</p>
+        </div>
+      </article>
+      <article class="card" aria-label="豆への徹底したこだわり">
+        <div class="icon" aria-hidden="true"><span>🌱</span></div>
+        <div>
+          <h3 class="mb-0">豆への徹底したこだわり</h3>
+          <p class="muted mt-8">スペシャルティランク中心に厳選。産地や焙煎度合いを見極め、風味を最大限に引き出します。</p>
+        </div>
+      </article>
     </div>
-    <div class="menu-item">
-      <img src="images/napolitan.jpg" alt="ナポリタン">
-      <h3>トマトソースのパスタ</h3>
-      <p>¥800</p>
+  </section>
+
+  <!-- ========== Menu ========== -->
+  <section id="menu" class="container" aria-labelledby="menu-title">
+    <h2 id="menu-title" class="section-title">メニュー</h2>
+    <div class="menu-grid">
+      <article class="menu-item">
+        <div class="menu-media">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1498804103079-a6351b050096?q=80&w=1200&auto=format&fit=crop" alt="たっぷりミルクのカフェオレ">
+        </div>
+        <div class="menu-body">
+          <h3 class="mb-0">カフェオレ（たっぷりミルク）</h3>
+          <p class="muted mt-8">まろやかでコクのある人気No.1。</p>
+          <p class="price mt-8">¥520</p>
+        </div>
+      </article>
+      <article class="menu-item">
+        <div class="menu-media">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1200&auto=format&fit=crop" alt="ドリップコーヒー">
+        </div>
+        <div class="menu-body">
+          <h3 class="mb-0">本日のドリップ</h3>
+          <p class="muted mt-8">厳選豆を日替わりで。香り高くすっきり。</p>
+          <p class="price mt-8">¥450</p>
+        </div>
+      </article>
+      <article class="menu-item">
+        <div class="menu-media">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1500111709600-7761aa8216d9?q=80&w=1200&auto=format&fit=crop" alt="コーヒー豆のパッケージ">
+        </div>
+        <div class="menu-body">
+          <h3 class="mb-0">自家焙煎コーヒー豆</h3>
+          <p class="muted mt-8">100g 〜。お好みの挽き目に対応します。</p>
+          <p class="price mt-8">¥780〜 / 100g</p>
+        </div>
+      </article>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="owner" class="owner">
-  <h2>店主紹介</h2>
-  <img src="images/owner.jpg" alt="店主の写真（50代男性）">
-  <h3>店主 山田太郎</h3>
-  <p>「一杯のコーヒーでみなさんの一日が豊かになりますように」</p>
-</section>
+  <!-- ========== Beans Story ========== -->
+  <section id="beans" class="container" aria-labelledby="beans-title">
+    <h2 id="beans-title" class="section-title">コーヒー豆へのこだわり</h2>
+    <div class="story">
+      <div class="photo">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=1400&auto=format&fit=crop" alt="焙煎されたコーヒー豆">
+      </div>
+      <div class="text">
+        <p>当店では、産地ごとの個性を大切にした <strong>スペシャルティコーヒー</strong> を中心にラインナップ。ミルクとの相性を考え、カフェオレには中深〜深煎りを採用しています。芳醇な香りとまろやかな口当たりをお楽しみください。</p>
+        <div class="grid-2 mt-16">
+          <div>
+            <div class="pill">おすすめ焙煎度</div>
+            <p class="mt-12">中深煎り（シティ〜フルシティ）</p>
+          </div>
+          <div>
+            <div class="pill">テイスティングノート</div>
+            <p class="mt-12">チョコレート / ナッツ / カラメル</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="access">
-  <h2>アクセス</h2>
-  <p>東京駅から徒歩5分</p>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.080109635187!2d139.76330251525804!3d35.68124023798064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bf84e0a3e4b%3A0x2f3e28b5c828a7b!2z5p2x5Lqs6YO95Lit5aSu5Yy65p2x5Lqs5biC!5e0!3m2!1sja!2sjp!4v1693735712345!5m2!1sja!2sjp" allowfullscreen="" loading="lazy"></iframe>
-</section>
+  <!-- ========== Access ========== -->
+  <section id="access" class="access" aria-labelledby="access-title">
+    <div class="container">
+      <h2 id="access-title" class="section-title">アクセス・営業時間</h2>
+      <div class="access-grid">
+        <div class="panel">
+          <h3 class="mb-0">所在地</h3>
+          <p class="mt-8">〒000-0000 東京都〇〇区〇〇 1-2-3 Café Lait</p>
+          <p class="muted">最寄り駅：〇〇駅 徒歩5分</p>
+          <h3 class="mt-16 mb-0">営業時間</h3>
+          <p class="mt-8">平日 9:00–19:00 / 土日祝 10:00–18:00</p>
+          <p class="muted">定休日：火曜</p>
+          <h3 class="mt-16 mb-0">お問い合わせ</h3>
+          <p class="mt-8">TEL: 00-0000-0000 / Mail: info@example.com</p>
+        </div>
+        <div class="panel">
+          <h3 class="mb-0">テイクアウト & 豆のご予約</h3>
+          <p class="mt-8">お電話またはメールにて承ります。お受け取り時間をご指定ください。</p>
+          <a class="btn mt-12" href="#">今すぐ問い合わせる</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<footer>
-  <p>営業時間: 10:00〜20:00（水曜定休）</p>
-  <p>電話番号: 03-1234-5678</p>
-  <p>&copy; 2025 Cafe 珈琲屋</p>
-</footer>
+  <!-- ========== Footer ========== -->
+  <footer>
+    <div class="container foot">
+      <div>
+        <strong>珈琲屋 Café Lait</strong>
+        <p class="muted mt-8">たっぷりミルクのカフェオレと、こだわりの豆をあなたに。</p>
+      </div>
+      <small>© <span id="y"></span> Café Lait Coffee. All rights reserved.</small>
+    </div>
+  </footer>
 
-<script>
-const toggle = document.querySelector(".menu-toggle");
-const menu = document.querySelector("nav ul");
-
-toggle.addEventListener("click", () => menu.classList.toggle("show"));
-
-document.querySelectorAll("nav a").forEach(link => {
-  link.addEventListener("click", () => menu.classList.remove("show"));
-});
-</script>
+  <script>
+    // コピーライトの年を自動更新（JS不要であれば削除OK）
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
